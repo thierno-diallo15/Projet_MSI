@@ -1,36 +1,29 @@
 ---
-title: "projet_MSPL_Diallo_Mesouak_Razafindrabe"
-author: 
-    - Diallo Thierno
-    - Mesouak Salaheddin
-    - Razafindrabe Timoty
+title: "Projet MSPL"
+author: "DIALLO Thierno, MESOUAK Salaheddin et RAZAFINDRABE Timoty"
 date: "`r Sys.Date()`"
-output: pdf_document
+output: 
+    pdf_document:
+        toc: true
+        toc_depth: 3
+        number_section: true
 ---
 
+<!-- Setup -->
 ```{r setup, include=FALSE, echo=FALSE}
-## Setup
 knitr::opts_chunk$set(echo = TRUE)
+```
 
-## Imports
+<!-- Imports -->
+```{r imports, echo=FALSE, message=FALSE, warning=TRUE, error=TRUE, cache=TRUE}
 library(tidyverse)
 ```
 
-# Projet MSPL
+\newpage
 
-------------------------------------------------------------------------
+# Introduction
 
-***Auteurs** : DIALLO Thierno, MESOUAK Salaheddin et RAZAFINDRABE Timoty*
-
-------------------------------------------------------------------------
-
-## Table des maitères
-
-------------------------------------------------------------------------
-
-## Introduction
-
-### Context
+## Context
 
 Cet ensemble de données présente les tendances des émissions anthropiques des principaux gaz à effet de serre et les émissions par gaz.
 
@@ -42,24 +35,24 @@ Les données excluent le CO~2~ indirect. Les couvertures territoriales sont cell
 
 > ***Remarque*** : Par souci de simplicité et pour minimiser l'apparition de doublons dans notre dataset nous n'avons téléchargé que les données concernant les gaz à effet de serre en général sur la période de 2000 à 2020.
 
-### Description de la problématique
+## Description de la problématique
 
-------------------------------------------------------------------------
+\newpage
 
-## Présentation des données
+# Présentation des données
 
-### Reformatage/Nettoyage
+## Reformatage/Nettoyage
 
-### Description des données utilisées
+## Description des données utilisées
 
-------------------------------------------------------------------------
+\newpage
 
-## Analyse par Programmation Littérale
+# Analyse par Programmation Littérale
 
-------------------------------------------------------------------------
+\newpage
 
-## Conclusion
+# Conclusion
 
-------------------------------------------------------------------------
+\newpage
 
-## Références
+# Références
