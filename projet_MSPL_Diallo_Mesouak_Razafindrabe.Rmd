@@ -1,0 +1,65 @@
+---
+title: "projet_MSPL_Diallo_Mesouak_Razafindrabe"
+author: 
+    - Diallo Thierno
+    - Mesouak Salaheddin
+    - Razafindrabe Timoty
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+## Setup
+knitr::opts_chunk$set(echo = TRUE)
+
+## Imports
+library(tidyverse)
+```
+
+# Projet MSPL
+
+------------------------------------------------------------------------
+
+***Auteurs** : DIALLO Thierno, MESOUAK Salaheddin et RAZAFINDRABE Timoty*
+
+------------------------------------------------------------------------
+
+## Table des maitères
+
+------------------------------------------------------------------------
+
+## Introduction
+
+### Context
+
+Cet ensemble de données présente les tendances des émissions anthropiques des principaux gaz à effet de serre et les émissions par gaz.
+
+Il est disponible sur le site de l'OCDE ([https://stats.oecd.org](https://stats.oecd.org/?lang=fr#)) est issu de la Soumission des inventaires nationaux 2022 à la *Convention Cadre des Nations Unies sur les Changements Climatiques* (**CCNUCC**), et réponses au questionnaire sur l'état de l'environnement de l'**OCDE**.
+
+Les données concernent les émissions totales de CO~2~ de CH~4~, d'oxyde nitreux (N~2~O), d'hydrofluorocarbures (HFC), d'hydrocarbures perfluorés (PFC), d'hexafluorure de soufre (SF~6~) et le trifluorure d'azote (NF~3~).
+
+Les données excluent le CO~2~ indirect. Les couvertures territoriales sont celles définies dans le Protocol de Kyoto.
+
+> ***Remarque*** : Par souci de simplicité et pour minimiser l'apparition de doublons dans notre dataset nous n'avons téléchargé que les données concernant les gaz à effet de serre en général sur la période de 2000 à 2020.
+
+### Description de la problématique
+
+------------------------------------------------------------------------
+
+## Présentation des données
+
+### Reformatage/Nettoyage
+
+### Description des données utilisées
+
+------------------------------------------------------------------------
+
+## Analyse par Programmation Littérale
+
+------------------------------------------------------------------------
+
+## Conclusion
+
+------------------------------------------------------------------------
+
+## Références

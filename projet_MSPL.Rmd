@@ -1,0 +1,65 @@
+---
+title: "Projet MSPL"
+author: "Diallo Thierno, Mesouak Salaheddin, Timoty Razafindrabe,"
+date: "2023-02-28"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Projet MSPL
+
+## **Table des matières**
+
+## **Introduction**
+
+## **Traitement des données**
+
+## \* Représentation graphique des données
+
+## \* Conclusion
+
+# **1) Introduction Context et choix du sujet**
+
+Cette étude porte sur l'analyse d'un jeu de données sur l'émission du gaz à effet de seere . Le jeu de données provient du site <https://stats.oecd.org> et relate l'émission de gaz à effet de serre de chaque pays entre 1900 et 2019. Le data set, est sous la forme tidy. Il contient au total 3 colonnes qui permettent d'identifier chaque élément constituant l'émission . Ainsi, pour chaque production nous avons : l'année, le pays et puis la quantité de gaz à effet de serre émis.
+
+**Question: A completer ?** quelques mots
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Charger les packages neccessaires
+
+```{r}
+library(tidyverse)
+```
+
+# Telechargement des données brutes et separer les variables par une virgule
+
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+Donnees <- read_delim("données.csv",delim=",")
+```
+
+## Methode d'analyse des données
+
+#1) Analyse statistique quelques mots
+
+#2) Analyse des données quelques mots
+
+# Afficher le contenu des données en dataframe
+
+```{r}
+head(Donnees)
+```
+
+#On selectionne les variables qui nous interesse
+
+```{r}
+Donnees <- Donnees %>% select (Pays,YEA,Value)
+head(Donnees)
+```
+
+```{r}
+
+```
