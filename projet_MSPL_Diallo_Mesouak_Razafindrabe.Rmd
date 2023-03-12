@@ -10,11 +10,13 @@ output:
 ---
 
 <!-- Setup -->
+
 ```{r setup, include=FALSE, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 <!-- Imports -->
+
 ```{r imports, echo=FALSE, message=FALSE, warning=TRUE, error=TRUE, cache=TRUE}
 library(tidyverse)
 ```
@@ -27,21 +29,23 @@ library(tidyverse)
 
 Cet ensemble de données présente les tendances des émissions anthropiques des principaux gaz à effet de serre et les émissions par gaz.
 
-Il est disponible sur le site de l'OCDE ([https://stats.oecd.org](https://stats.oecd.org/?lang=fr#)) est issu de la Soumission des inventaires nationaux 2022 à la *Convention Cadre des Nations Unies sur les Changements Climatiques* (**CCNUCC**), et réponses au questionnaire sur l'état de l'environnement de l'**OCDE**.
+Il est disponible sur le site de l'OCDE ([https://stats.oecd.org](https://stats.oecd.org/?lang=fr#)), est issu de la Soumission des inventaires nationaux 2022 à la *Convention Cadre des Nations Unies sur les Changements Climatiques* (**CCNUCC**), et répond au questionnaire sur l'état de l'environnement de l'**OCDE**.
 
 Les données concernent les émissions totales de CO~2~ de CH~4~, d'oxyde nitreux (N~2~O), d'hydrofluorocarbures (HFC), d'hydrocarbures perfluorés (PFC), d'hexafluorure de soufre (SF~6~) et le trifluorure d'azote (NF~3~).
 
 Les données excluent le CO~2~ indirect. Les couvertures territoriales sont celles définies dans le Protocol de Kyoto.
 
-> ***Remarque*** : Par souci de simplicité et pour minimiser l'apparition de doublons dans notre dataset nous n'avons téléchargé que les données concernant les gaz à effet de serre en général sur la période de 2000 à 2020.
+> ***Remarque*** : Par souci de simplicité et pour minimiser l'apparition de doublons dans notre dataset nous n'avons téléchargé que les données concernant les gaz à effet de serre en général (GHG) sur la période de 2000 à 2020.
 
 ## Description de la problématique
+
+Dans cette étude, nous
 
 \newpage
 
 # Présentation des données
 
-## Reformatage/Nettoyage
+## Nettoyage des données
 
 ## Description des données utilisées
 
