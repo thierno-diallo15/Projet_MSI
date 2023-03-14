@@ -45,7 +45,48 @@ Dans cette étude, nous
 
 # Présentation des données
 
+```{r echo=TRUE, message=FALSE, warning=FALSE, paged.print=FALSE}
+Donnees <- read_delim("data/emmission_GHG_2000_2020.csv",delim=",")
+head(Donnees)
+```
 ## Nettoyage des données
+
+```{r}
+DonneesT <- Donnees %>% select(Pays,YEA,Value,Variable)
+head(DonneesT)
+```
+```{r}
+DonneesT <- DonneesT %>% filter(Variable=="Emissions totales exluant l'UTCF")
+head(DonneesT)
+```
+```{r}
+names(DonneesT)<-c("Pays", "Année", "Valeurs","Variable")
+head(DonneesT)
+```
+# graphique
+
+```{r}
+ggplot(data = DonneesT, aes(x = Année, y = Valeurs, color=Pays)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Année", y = "Émissions (kilotonnes)", color = "Catégorie") +
+  ggtitle("Émissions de GES dans le monde, 2000-2020")
+```
+## top 10 des pays les plus emetteurs de ges
+
+```{r}
+top10 <- DonneesT %>% filter(Pays=="Chine (République populaire de)" |Pays=="États-Unis" | Pays=="Inde" | Pays=="Russie" | Pays=="Japon" | Pays=="Iran" | Pays=="Allemagne" | Pays=="	
+Corée"| Pays=="Indonésie" |Pays=="Arabie saoudite")
+```
+
+## graphique des Top10 
+```{r}
+ggplot(data = top10, aes(x = Année, y = Valeurs, color=Pays)) +
+  geom_line() +
+  geom_point() +
+  labs(x = "Année", y = "Émissions (kilotonnes)", color = "Catégorie") +
+  ggtitle("Émissions de GES dans le monde, 2000-2020")
+```
 
 ## Description des données utilisées
 
