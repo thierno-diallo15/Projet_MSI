@@ -21,8 +21,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <!-- Imports -->
 
-```{r imports, echo=FALSE, message=FALSE, warning=TRUE, error=TRUE, cache=TRUE}
+```{r imports, echo=FALSE, message=FALSE, warning=TRUE, error=TRUE}
 library(tidyverse)
+library(dplyr)
+library(esquisse)
 ```
 
 \newpage
@@ -68,19 +70,25 @@ Le but de cette étude est de déterminer s'il éxiste un lien entre le PIB et l
 ```{r echo=TRUE, eval=TRUE, message=FALSE, warning=TRUE, error=TRUE}
 datasetPIB %>%
   select(Pays, Temps, Value) %>%
-  na.omit()
+  na.omit() %>% 
+  head()
 ```
 
-```{r echo=TRUE, eval=TRUE, message=FALSE, warning=TRUE, error=TRUE}
-ggplot(datasetPIB, aes(x=Temps, y=Value, color=Pays)) +
-  geom_point(alpha=0.5) +
-  geom_line()
-```
 
 ```{r echo=TRUE, eval=TRUE, message=FALSE, warning=TRUE, error=TRUE}
 datasetGES %>%
   select(Pays, Année, Value) %>%
-  na.omit()
+  na.omit() %>% 
+  head()
+```
+
+
+## Choix de présentation des données
+
+```{r echo=TRUE, eval=TRUE, message=FALSE, warning=TRUE, error=TRUE}
+ggplot(datasetPIB, aes(x=Temps, y=Value)) +
+  geom_point(alpha=0.5) +
+  geom_line() 
 ```
 
 ```{r echo=TRUE, eval=TRUE, message=FALSE, warning=TRUE, error=TRUE}
@@ -88,9 +96,6 @@ ggplot(datasetGES, aes(x=Année, y=Value, color=Pays)) +
   geom_point(alpha=0.5) +
   geom_line()
 ```
-
-## Choix de présentation des données
-
 \newpage
 
 # Analyse par Programmation Littérale
