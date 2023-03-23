@@ -106,7 +106,18 @@ ges = datasetGES %>%
 
 ## Choix de présentation des données
 
-Nous avons décidé de ne prendre que 10
+```{r}
+ggplot(datasetPIB, aes(Temps, Value, color=Pays)) +
+  geom_point(alpha=0.5) +
+  geom_line()
+```
+
+```{r}
+ggplot(datasetGES, aes(Année, Value, color=Pays)) +
+  geom_point(alpha=0.5) +
+  geom_line()
+```
+
 
 ```{r}
 moyennes_pib_pays_10 = pib %>%
@@ -131,6 +142,119 @@ moyennes_ges_pays_10
 \newpage
 
 # Analyse par Programmation Littérale
+
+## Etude sur l'émission de GES annuelle par pays
+
+Fonction de création d'un graphique en courbe pour une zone donnée.
+
+```{r message=TRUE, warning=FALSE, paged.print=FALSE}
+drawPointPlot<-function(locationName,maxVal,titre){
+datasetGES %>%
+  
+  filter(Pays == locationName) %>%
+  select(Année,Value) %>%
+  ggplot() + labs(title = titre,
+              subtitle = "",
+              caption = "Data source: ocde.org")+
+  xlim(2000,2019) + ylim(0,maxVal) +
+  geom_point(aes(Année,Value))+
+  scale_colour_wsj("colors6", "") + theme_wsj()
+}
+```
+
+Fonction de création d'un graphique bâton pour une zone donnée.
+
+```{r message=TRUE, warning=FALSE, paged.print=FALSE}
+drawBarPlot<-function(locationName,maxVal,titre){
+datasetGES %>%
+  filter(Pays == locationName) %>%
+  select(Année,Value) %>%
+  ggplot() + labs(title = titre,
+              subtitle = "",
+              caption = "Data source: ocde.org")+
+  xlim(2000,2020) + ylim(0,maxVal) +
+  geom_bar(stat="identity",aes(Année,Value))+
+  scale_colour_wsj("colors6", "") + theme_wsj()
+}  
+
+```
+
+Fonction retournant la valeur maximale d'émission d'une zone donnée.
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+maxVal <- function(locationName) {
+  datasetGES %>%
+  filter(Pays== locationName) %>%
+  select(Value) %>%
+  max() %>%
+  round()
+}
+
+```
+
+Calcul le maximum d'émission des 10 plus emetteur des gaz à effet de serre dans le monde
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+maxValUSA<- maxVal("États-Unis")
+maxValRUS<- maxVal("Russie")
+maxValSAU<- maxVal("Arabie saoudite")
+maxValCHN<- maxVal("Chine (République populaire de)")
+```
+
+Graphique en courbe de l'émission de GES annuelle pour un pays donné
+
+```{r fig.height=15, fig.width=10, message=TRUE, warning=FALSE, paged.print=TRUE}
+
+pointPlotUSA <- drawPointPlot("États-Unis",maxValUSA,"Etats-Unis")
+pointPlotRUS <- drawPointPlot("Russie",maxValRUS,"Russie")
+pointPlotSAU <- drawPointPlot("Arabie saoudite",maxValSAU,"Arabie Saoudite")
+pointPlotCHN <- drawPointPlot("Chine (République populaire de)",maxValCHN,"Chine")
+
+grid.arrange(pointPlotUSA, pointPlotRUS, pointPlotSAU,
+                             pointPlotCHN,
+                             ncol=2, nrow = 5)
+```
+
+
+# Graphique en barre de l'emmission annuelle de CO2 pour un pays donné
+
+```{r fig.height=15, fig.width=10, message=TRUE, warning=FALSE, paged.print=TRUE}
+barPlotUSA <- drawBarPlot("États-Unis",maxValUSA,"Etats-Unis");
+barPlotRUS <- drawBarPlot("Russie",maxValRUS,"Russie");
+barPlotSAU <- drawBarPlot("Arabie saoudite",maxValSAU,"Arabie Saoudite");
+barPlotCHN <- drawBarPlot("Chine (République populaire de)",maxValCHN,"Chine");
+
+grid.arrange(barPlotUSA, barPlotRUS, barPlotSAU,
+             barPlotCHN, 
+             ncol=2, nrow = 5)
+```
+
+
+\newpage
+
+# Conclusion
+
+\newpage
+
+# Références
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------
+
 
 graphique pour les dix pays
 
@@ -206,95 +330,6 @@ scale_fill_gradient(low = "green", high = "red", name = "Emissions GAS")+
   theme_void()
 ```
 
-# **3) Etude sur l'émission de GES annuelle par pays**
 
-### Fonction de création d'un graphique en courbe pour une zone donnée.
 
-```{r message=TRUE, warning=FALSE, paged.print=FALSE}
-drawPointPlot<-function(locationName,maxVal,titre){
-datasetGES %>%
-  
-  filter(Pays == locationName) %>%
-  select(Année,Value) %>%
-  ggplot() + labs(title = titre,
-              subtitle = "",
-              caption = "Data source: ocde.org")+
-  xlim(2000,2019) + ylim(0,maxVal) +
-  geom_point(aes(Année,Value))+
-  scale_colour_wsj("colors6", "") + theme_wsj()
-}
-```
 
-### Fonction de création d'un graphique bâton pour une zone donnée.
-
-```{r message=TRUE, warning=FALSE, paged.print=FALSE}
-drawBarPlot<-function(locationName,maxVal,titre){
-datasetGES %>%
-  filter(Pays == locationName) %>%
-  select(Année,Value) %>%
-  ggplot() + labs(title = titre,
-              subtitle = "",
-              caption = "Data source: ocde.org")+
-  xlim(2000,2017) + ylim(0,maxVal) +
-  geom_bar(stat="identity",aes(Année,Value))+
-  scale_colour_wsj("colors6", "") + theme_wsj()
-}  
-
-```
-
-### Fonction retournant la valeur maximale d'émission d'une zone donnée.
-
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-maxVal <- function(locationName) {
-  datasetGES %>%
-  filter(Pays== locationName) %>%
-  select(Value) %>%
-  max() %>%
-  round()
-}
-
-```
-
-### Calcul le maximum d'émission des 10 plus emetteur des gaz à effet de serre dans le monde
-
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-maxValUSA<- maxVal("États-Unis")
-maxValRUS<- maxVal("Russie")
-maxValSAU<- maxVal("Arabie saoudite")
-maxValCHN<- maxVal("Chine (République populaire de)")
-```
-
-# Graphique en courbe de l'émission de GES annuelle pour un pays donné
-
-```{r fig.height=15, fig.width=10, message=TRUE, warning=FALSE, paged.print=TRUE}
-
-pointPlotUSA <- drawPointPlot("États-Unis",maxValUSA,"Etats-Unis")
-pointPlotRUS <- drawPointPlot("Russie",maxValRUS,"Russie")
-pointPlotSAU <- drawPointPlot("Arabie saoudite",maxValSAU,"Arabie Saoudite")
-pointPlotCHN <- drawPointPlot("Chine (République populaire de)",maxValCHN,"Chine")
-
-grid.arrange(pointPlotUSA, pointPlotRUS, pointPlotSAU,
-                             pointPlotCHN,
-                             ncol=2, nrow = 7)
-```
-
-# Graphique en barre de l'emmission annuelle de CO2 pour un pays donné
-
-```{r fig.height=15, fig.width=10, message=TRUE, warning=FALSE, paged.print=TRUE}
-barPlotUSA <- drawBarPlot("États-Unis",maxValUSA,"Etats-Unis");
-barPlotRUS <- drawBarPlot("Russie",maxValRUS,"Russie");
-barPlotSAU <- drawBarPlot("Arabie saoudite",maxValSAU,"Arabie Saoudite");
-barPlotCHN <- drawBarPlot("Chine (République populaire de)",maxValCHN,"Chine");
-
-grid.arrange(barPlotUSA, barPlotRUS, barPlotSAU,
-             barPlotCHN, 
-             ncol=2, nrow = 5)
-```
-
-\newpage
-
-# Conclusion
-
-\newpage
-
-# Références
