@@ -24,7 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r imports, echo=FALSE, message=FALSE, warning=TRUE, error=TRUE}
 library(tidyverse)
 library(dplyr)
-library(esquisse)
+#library(esquisse)
 library(ggplot2)
 library(maps)
 library(cowplot)
@@ -110,7 +110,7 @@ Dchine <- datasetPIB %>%
 DchineF<- ggplot(Dchine, aes(x = Temps, y=Value))+
   geom_point(col="red")+ geom_line() +
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +
-  ggtitle("Frequence du pib de la chine ")+ 
+  ggtitle("Evolution du pib de la chine ")+ 
   xlab("Année")+ 
   ylab("Valuers")
 
@@ -166,6 +166,7 @@ ggplot(dataSetMap, aes(x = long, y = lat, group = group, fill = Value)) +
 geom_polygon() +
 labs(title = "Global Emissions GAS by Country", x = "", y = "")+
 scale_fill_gradient(low = "green", high = "red", name = "Emissions GAS")+
+geom_text(aes(x = long, y = lat, label = region), size = 3, color = "black") + 
   theme_void()
 ```
 
