@@ -42,7 +42,7 @@ library(plyr)
 
 Dans cette étude, nous nous appuyons sur deux bases de données toutes deux issues et récupérable sur le site de l'[OCDE](https://stats.oecd.org/?lang=fr#).
 
-> **Remarque :** Le dataset complèt présente d'autres variables et méthodes de mesure sur une périeode de temps plus large. Nous avons utilisé l'interface du site pour filtrée la base et ne récpérer que les données dont nous avons besoin (les données concernant les organisations (OCDE, UE) ne sont pas inclues)
+> **Remarque :** Le dataset complèt présente d'autres variables et méthodes de mesure sur une périeode de temps plus large. Nous avons utilisé l'interface du site pour filtrée la base et ne récupérer que les données dont nous avons besoin (les données concernant les organisations (OCDE, UE) ne sont pas inclues)
 
 ### Le niveaux de PIB par tête et de productivité
 
@@ -90,7 +90,7 @@ pib = datasetPIB %>%
   na.omit()
 ```
 
-Lesd variables, venant du dataset des Emissions de Gaz à Effet de Serre (GES), que nous allons utiliser sont :
+Les variables, venant du dataset des Emissions de Gaz à Effet de Serre (GES), que nous allons utiliser sont :
 
 -   `Pays` : le nom des 48 pays
 
@@ -106,37 +106,64 @@ ges = datasetGES %>%
 
 ## Choix de présentation des données
 
+Aperçu de l'évolution des PIB par pays de 2000 à 2020.
+
 ```{r}
-ggplot(datasetPIB, aes(Temps, Value, color=Pays)) +
+ggplot(pib, aes(Temps, Value, color=Pays)) +
   geom_point(alpha=0.5) +
   geom_line()
 ```
 
+Aperçu de l'évolution des émissions de GES par pays de 2000 à 2020.
+
 ```{r}
-ggplot(datasetGES, aes(Année, Value, color=Pays)) +
+ggplot(ges, aes(Année, Value, color=Pays)) +
   geom_point(alpha=0.5) +
   geom_line()
 ```
 
+Par souci de lisibilité, nous avons décidé de n'étudier que les 10 pays au PIB les plus élevés, les PIB au taux d'émission de GES les plus élevé et de joindre ces selections:
 
 ```{r}
-moyennes_pib_pays_10 = pib %>%
+moyennes_pib_top10pays = pib %>%
   group_by(Pays) %>% 
   dplyr::summarise(moy=mean(Value)) %>% 
   arrange(desc(moy)) %>% 
   top_n(10)
 
-moyennes_pib_pays_10
-```
-
-```{r}
-moyennes_ges_pays_10 = ges %>%
+moyennes_ges_top10pays = ges %>%
   group_by(Pays) %>% 
   dplyr::summarise(moy=mean(Value)) %>% 
   arrange(desc(moy)) %>% 
   top_n(10)
 
-moyennes_ges_pays_10
+moyenne_top_pays = inner_join(moyennes_pib_top10pays, moyennes_ges_top10pays, by="Pays", suffix=c(".pib", ".ges"))
+
+selected_pays_pib = pib %>% 
+  filter(Pays %in% moyenne_top_pays$Pays)
+
+selected_pays_ges = ges %>% 
+  filter(Pays %in% moyenne_top_pays$Pays)
+```
+
+Ces pays seront donc ceux que nous étudierons. En voici un apperç de leur données : 
+
+```{r}
+  ggplot(selected_pays_pib, aes(x=Temps, y=Value, color=Pays)) +
+    geom_point() +
+    geom_line() +
+    labs(title = "Evolution du PIB par pays de 2000 à 2020",
+       y = "PIB (en (en millions de USD)",
+       x = "Année")
+```
+
+```{r}
+  ggplot(selected_pays_ges, aes(x=Année, y=Value, color=Pays)) +
+    geom_point() +
+    geom_line() +
+    labs(title = "Evolution des émissions de GES par pays de 2000 à 2020",
+       y = "Emissions de GES (en milliers de tonne d'équivalent CO2)",
+       x = "Année")
 ```
 
 \newpage
@@ -215,7 +242,6 @@ grid.arrange(pointPlotUSA, pointPlotRUS, pointPlotSAU,
                              ncol=2, nrow = 5)
 ```
 
-
 # Graphique en barre de l'emmission annuelle de CO2 pour un pays donné
 
 ```{r fig.height=15, fig.width=10, message=TRUE, warning=FALSE, paged.print=TRUE}
@@ -229,7 +255,6 @@ grid.arrange(barPlotUSA, barPlotRUS, barPlotSAU,
              ncol=2, nrow = 5)
 ```
 
-
 \newpage
 
 # Conclusion
@@ -238,23 +263,7 @@ grid.arrange(barPlotUSA, barPlotRUS, barPlotSAU,
 
 # Références
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------------------------------------------------
-
+------------------------------------------------------------------------
 
 graphique pour les dix pays
 
@@ -329,7 +338,3 @@ labs(title = "Global Emissions GAS by Country", x = "", y = "")+
 scale_fill_gradient(low = "green", high = "red", name = "Emissions GAS")+
   theme_void()
 ```
-
-
-
-
